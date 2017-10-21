@@ -9,12 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.13.3",
-    "express": "^4.13.3",
-    "pg": "^4.4.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^3.5.1",
-    "sqlite3": "^3.0.10",
+    "sequelize": "^4.13.17",
+    "sqlite3": "^3.1.13",
     "underscore": "^1.8.3"
   }
 }
