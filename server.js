@@ -43,7 +43,7 @@ app.get('/todos/:id', function (req, res) {
 	var todoId = parseInt(req.params.id, 10);
 
 	db.todo.findById(todoId).then(function (todo) {
-		if (!!todo) {
+		if (todo) {
 			res.json(todo.toJSON());
 		} else {
 			res.status(404).send();
@@ -126,9 +126,7 @@ app.post('/users', function (req, res) {
 
 });
 
-
-
-db.sequelize.sync().then(function () {
+db.sequelize.sync({force:true}).then(function () {
 	app.listen(PORT, function () {
 		console.log('Express listening on port ' + PORT + '!');
 	});

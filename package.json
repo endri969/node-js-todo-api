@@ -16,5 +16,8 @@
     "sequelize": "^4.13.17",
     "sqlite3": "^3.1.13",
     "underscore": "^1.8.3"
+  },
+  "devdependencies": {
+    "eslint":"^4.9.0"
   }
 }
