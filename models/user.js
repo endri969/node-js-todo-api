@@ -8,6 +8,8 @@ Sequelize.useCLS(ns);
 
 var bcrypt = require('bcrypt');
 var _ = require('underscore');
+var cryptojs = require('crypto-js');
+var jwt = require('jsonwebtoken');
 
 module.exports = function (sequelize, DataTypes) {
 
@@ -64,13 +66,11 @@ module.exports = function (sequelize, DataTypes) {
 					email: body.email
 				}
 			}).then(function (user) {
-
 				if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
 					return reject();
 				}
 
 				return resolve(user);
-
 			}, function () {
 				return reject();
 			});
@@ -81,6 +81,31 @@ module.exports = function (sequelize, DataTypes) {
 	User.prototype.toPublicJSON = function () {
 		var json = this.toJSON();
 		return _.pick(json, 'id', 'email', 'createdAt', 'updatedAt');
+	}
+
+	User.prototype.generateToken = function (type) {
+		
+		if ( !_.isString(type)) {
+			return undefined;
+		}
+
+		try {
+			var stringData = JSON.stringify({
+				id: this.get('id'),
+				type: type
+			});
+			
+			var ecnryptedData = cryptojs.AES.encrypt(stringData, 'abc123!@#').toString();
+			var token = jwt.sign({
+				token : ecnryptedData
+			},'qwerty098');
+
+			return token;
+
+		} catch (e) {
+		
+			return undefined;
+		}
 	}
 
 	return User;
