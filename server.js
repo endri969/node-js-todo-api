@@ -160,7 +160,8 @@ app.post('/users/login', function (req, res) {
 });
 
 db.sequelize.sync({force:true}).then(function () {
-	app.listen(PORT, function () {
-		console.log('Express listening on port ' + PORT + '!');
+	var server = app.listen(PORT, function () {
+		var port = server.address().port;
+		console.log("Express is working on port " + port);
 	});
 });
